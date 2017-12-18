@@ -1,6 +1,6 @@
 PVector pos;
 PVector vel;
-int size = 40;
+int size = 10;
 
 void setup()
 {
@@ -25,4 +25,8 @@ void draw()
   else
     fill(255);
   ellipse(pos.x, pos.y, size, size);
+  PVector v = vel.copy();
+  v.mult(20);
+  stroke(255);
+  line(pos.x, pos.y, pos.x + v.x, pos.y + v.y);
 }
