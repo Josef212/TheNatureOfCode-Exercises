@@ -30,11 +30,11 @@ function Mover()
 	{
 		if(this.bounds == 1)
 		{
-			if(this.pos.x < 0) { this.pos.x = 0; this.vel.x *= -1; }
-			else if(this.pos.x > width) { this.pos.x = width; this.vel.x *= -1; }
+			if(this.pos.x < 0) { this.pos.x = 0; this.vel.x *= -0.9; }
+			else if(this.pos.x > width) { this.pos.x = width; this.vel.x *= -0.9; }
 
-			if(this.pos.y < 0) { this.pos.y = 0; this.vel.y *= -1; }
-			else if(this.pos.y > height) { this.pos.y = height; this.vel.y *= -1; }
+			if(this.pos.y < 0) { this.pos.y = 0; this.vel.y *= -0.9; }
+			else if(this.pos.y > height) { this.pos.y = height; this.vel.y *= -0.9; }
 		}
 		else if(this.bounds == 2)
 		{
@@ -60,7 +60,7 @@ function Mover()
 
 	this.AddForce = function(force)
 	{
-		this.AddForce(force.x, force.y);
+		this.AddForce(p5.Vector.div(force, this.mass));
 	}
 
 	this.AddForce = function(x, y)
