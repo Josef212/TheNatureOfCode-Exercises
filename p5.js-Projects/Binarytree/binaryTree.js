@@ -1,3 +1,5 @@
+let ySeparation = 50;
+
 class BNode
 {
     constructor(val)
@@ -8,6 +10,8 @@ class BNode
 
         this.parent = null;
         this.depth = 0;
+
+        this.pos = {x: 0, y: 0};
     }
 
     add(n, parent)
@@ -19,6 +23,8 @@ class BNode
                 this.left = n;
                 n.parent = this;
                 n.depth = this.depth + 1;
+
+                this.setPosition();
             }
             else
             {
@@ -32,6 +38,8 @@ class BNode
                 this.right = n;
                 n.parent = this;
                 n.depth = this.depth + 1;
+
+                this.setPosition();
             }
             else
             {
@@ -89,6 +97,17 @@ class BNode
         }
 
         return false;
+    }
+
+    setPosition()
+    {
+        this.pos.y = 20 + this.depth * ySeparation;
+        this.log();
+    }
+
+    log()
+    {
+        console.log(this.value + ": (" + this.pos.x + " - " + this.pos.y + ") d-" + this.depth);
     }
 }
 

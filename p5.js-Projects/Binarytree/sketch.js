@@ -1,7 +1,5 @@
 let bt;
 
-let ySeparation = 50;
-
 function setup()
 {
     createCanvas(600, 400);
@@ -14,113 +12,40 @@ function setup()
         bt.add(floor(random(0, 100)));
     }
 
-    bt.add(5);
+    /*bt.add(5);
     bt.add(3);
     bt.add(7);
-    bt.add(2);
+    bt.add(2);*/
 
     console.log(bt);
     bt.traverse((x) => console.log(x.value));
 
-    //render();
+    render();
 }
 
-/*function renderNode(n)
+function renderNode(n)
 {
     fill(255);
     noStroke();
     textAlign(CENTER, CENTER);
 
-    // Root position and origin of the tree
-    let d = n.node.depth;
+    text(n.value, n.pos.x, n.pos.y);
 
-    let x = width / 2;
-    let y = 20 + d * ySeparation;
+    n.log();
+}
 
-    if(d > 0)
-    {
-        x = 1 * width / n.b; //Math.pow((d + 1), 2);
-    }
-
-    //console.log("V: " + n.value + ": " + x + " - " + y);
-
-    if(n.node.isOnLeft())
-    {
-        // Move the x to the left
-    }
-    else if(n.node.isOnRight())
-    {
-        // Move the x to the right
-    }
-    // Else the node is the root so let it be
-
-
-    text(n.node.value, n.x, n.y);
-}*/
-
-/*function render()
+function render()
 {
     let nodes = [];
 
-    bt.traverse((n) => 
-    {
-        let b = Math.pow((n.depth + 1), 2);
-
-        let getParentObj = () => 
-        {
-            for(let t of nodes)
-            {
-                if(t.key === n.parent)
-                {
-                    return t.value;
-                }
-            }
-            return null;
-        };
-
-        let pObj = getParentObj();
-
-        let x = width / 2;
-        //if(n.depth > 0) x = 1 * width / b;
-        
-        if(pObj !== null && pObj !== undefined)
-        {
-            console.log(n.value + ": " + pObj);
-            if(n.isOnLeft())
-            {
-                x = pObj.x - (width / b);
-                console.log("Val: " + n.value + " - pObj.x - (width / b): " + pObj.x + " - " + "(" + width + " / " + " " + b +") = " + x);
-            }
-            if(n.isOnRight())
-            {
-                x = pObj.x + (width / b);
-                console.log("Val: " + n.value + " - pObj.x - (width / b): " + pObj.x + " + " + "(" + width + " / " + " " + b +") = " + x);
-            }
-        }
-        else
-            console.log("Val: " + n.value + " - x: " + x);
-
-        
-
-        let obj = 
-        {
-            node: n,
-            b: b,
-
-            x: x,
-            y: 20 + n.depth * ySeparation
-        };
-
-        nodes.push({"key": n, "value": obj});
-    
-    });
+    bt.traverse((n) => nodes.push(n));
 
     for(let n of nodes)
-        renderNode(n.value);
-}*/
+        renderNode(n);
+}
 
 function mousePressed()
 {
     bt.add(floor(random(0, 100)));
-    //render();
+    render();
 }
