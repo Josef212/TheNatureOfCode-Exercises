@@ -30,11 +30,31 @@ async function train(iterations = 1)
     }
 }
 
+/*let nn = new NeuralNetwork(
+    2, 
+    {units: 20, activation: 'sigmoid'},
+    {units: 1, activation: 'sigmoid'}
+);
+
+nn.create({
+    optimizer: tf.train.sgd(0.1),
+    learningRate: 0.1,
+    loss: 'meanSquaredError'
+});
+
+nn.train(
+    tf.tensor2d(train_data.inputs), 
+    tf.tensor2d(train_data.expect),
+    {shuffle: true, epochs: 10},
+    200
+)
+.then(() => nn.predict(tf.tensor2d(train_data.inputs)).print());*/
+
 function setup()
 {
     fpsp = createP("Fps: " + 0);
     createCanvas(400, 400);
-    noLoop();
+    //noLoop();
 
     // --------------------------------------------
     
@@ -53,9 +73,9 @@ function setup()
     });
 }
 
-/*function renderFrame()
+function draw()
 {
-    //fpsp.html("Fps: " + Math.floor(getFrameRate()));
+    fpsp.html("Fps: " + Math.floor(getFrameRate()));
 
     background(0);
 
@@ -67,21 +87,14 @@ function setup()
     {
         for(let j = 0; j < rows; ++j)
         {
-            let val = tf_model.predict(tf.tensor2d([[i / cols, j / rows]])).dataSync()[0];
+            let val = random(0, 1); // tf_model.predict(tf.tensor2d([[i / cols, j / rows]])).dataSync()[0];
             //console.log(val);
             noStroke();
             fill(val * 255);
             rect(i * res, j * res, res, res);
         }
     }
-
-    console.log('Frame');
-
-    train(10).then(() => 
-    {
-        renderFrame();
-    });
-}*/
+}
 
 /*tf_model.fit(
     tf.tensor2d(train_data.inputs),
