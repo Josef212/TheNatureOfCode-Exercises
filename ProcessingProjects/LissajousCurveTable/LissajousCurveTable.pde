@@ -1,4 +1,4 @@
-float boxSize = 80.0f; //80.0f;
+float boxSize = 80.0f;
 float diameter = boxSize - 0.2 * boxSize;
 float radius = diameter / 2f;
 float angularVelocity = 0.01f;
@@ -87,7 +87,7 @@ void DrawRotators(RotationPoint[] rotators)
   {
     RotationPoint rp = rotators[i];
     
-    float value = rp.Draw((i + 1) * angle, rotators == hrp);
+    float value = rp.Draw(GetAngle(i), rotators == hrp);
     
     if(rotators == hrp)
     {
@@ -122,4 +122,13 @@ void CreateRotators(int size, boolean horizontal)
      vrp[i] = new RotationPoint(cx, cy, radius);
    }
  }
+}
+
+
+
+float GetAngle(int i)
+{
+  //return pow(i + 1, 2) * angle;
+  //return (i * 2 + 1) * angle;
+  return (i + 1) * angle; // Default
 }
