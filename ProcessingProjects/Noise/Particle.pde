@@ -55,11 +55,12 @@ class Particle
         BounceOnBounds();
     }
 
-    void DrawDebug()
+    void DrawDebug(float lookingZ)
     {
-        stroke(0, 255, 0);
+        float alpha = map(abs(lookingZ - _position.z), 0, width * 0.75, 255, 0);
+        stroke(255, 40, 240, alpha);
         strokeWeight(8);
-        point(_position.x, _position.y);
+        point(_position.x, _position.y); 
     }
 
     void ClampPosition()
