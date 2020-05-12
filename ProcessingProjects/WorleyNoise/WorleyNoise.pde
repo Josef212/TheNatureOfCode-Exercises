@@ -9,6 +9,9 @@ boolean drawDebug = false, updateZ = false;
 Particle[] points = new Particle[50];
 float z = 0;
 
+static int NORMAL_DIST = 0, MANHATTAN_DIST = 1;
+static int distanceMode = NORMAL_DIST;
+
 void setup()
 {
     size(500, 500);
@@ -44,9 +47,10 @@ void draw()
         {
             float[] sorted = Helper.GetSortedDistancesForPoint(x, y, z, points);
 
-            float d0 = map(sorted[1], 0, width * 0.5, 255, 0);
-            float d1 = map(sorted[2], 0, width * 0.5, 0, 255);
-            float d2 = map(sorted[0], 0, width * 0.5, 255, 0);
+            float mapping = distanceMode == NORMAL_DIST ? width * 0.5 : width * 0.75;
+            float d0 = map(sorted[0], 0, mapping, 255, 0);
+            float d1 = map(sorted[1], 0, mapping, 255, 0);
+            float d2 = map(sorted[2], 0, mapping, 255, 0);
 
             int index = x + y * width;
             pixels[index] = color(d0, d1, d2);
@@ -70,11 +74,11 @@ void draw()
         }
     }
 }
-
+ //<>// //<>//
 void actionPerformed (GUIEvent e) 
 {
     drawDebug = drawDebugCb.isSelected();
-    updateZ = updateZCb.isSelected(); //<>// //<>//
+    updateZ = updateZCb.isSelected();
 }
 
 static class Helper
@@ -86,10 +90,25 @@ static class Helper
         {
             PVector p = pointsSet[i].GetPosition();
 
-            float d = dist(x, y, z, p.x, p.y, p.z);
+            float d = distanceMode == NORMAL_DIST 
+                ? Distance(x, y, z, p.x, p.y, p.z) 
+                : ManhattanDist(x, y, z, p.x, p.y, p.z);
             distances[i] = d;
         }
 
         return sort(distances);
+    }
+
+    static float Distance(float x0, float y0, float z0, float x1, float y1, float z1)
+    {
+        return dist(x0, y0, z0, x1, y1, z1);
+    }
+
+    static float ManhattanDist(float x0, float y0, float z0, float x1, float y1, float z1)
+    {
+        float x = abs(x1 - x0);
+        float y = abs(y1 - y0);
+        float z = abs(z1 - z0);
+        return x + y + z;
     }
 }
